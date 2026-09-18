@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class PART1 {
         
     public static void main(String[] args) {
+        
         Scanner inputs = new Scanner(System.in);
         //Prompt users for surname
         System.out.println("Enter your name: ");
@@ -32,7 +33,9 @@ public class PART1 {
         System.out.println(checkUsername(username));
         System.out.println(checkUserPassword(password));
         System.out.println(checkUserCellphoneNum(cellphoneNum));
-        //System.out.println("Welcome "+name +","+surname+"it is great to see you again.");
+        
+        
+      
     }
     //Methods to validate registration inputs
     static String checkUsername( String userAccountName)
@@ -77,13 +80,13 @@ public class PART1 {
             }
             
             //checking for uppercase in password
-            else if (Character.isLetterOrDigit(aChar))
+            else if (!Character.isLetterOrDigit(aChar))
             {
                 specialCharCount++;
             }
         }
         
-        if (count1<=8 && uppercaseCount<1 && numCount<1 && specialCharCount<1)
+        if (count1>=8 && uppercaseCount>1 && numCount>1 && specialCharCount>1)
         {
             return("Password successfully captured.");
         }
