@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.part1;
-
+import java.util.Random;
 /**
  *
  * @author itume
@@ -11,7 +11,67 @@ package com.mycompany.part1;
 public class Message {
    
     private String recipientNumber;
+    private int messageID;
+    private int numOfMessages;
+    private String messageHash;
+    private String messageStatus;
+    private String message;
+            
+    public Message(String recipienNumber, String message)
+    {
+        this.messageID = newMessageID();
+        this.recipientNumber = recipientNumber;
+        this.message = message; 
+    }
+    private static String generateMessageID()
+    {
+        StringBuilder idBuild = new StringBuilder();
+        for (int i = 0; 1<maxIDLength; i++)
+        {
+            idBuild.append(random.nextInt(10));
+        }
+        return idBuild.toString();
+    }
     
-     System.out.println("Welcome to QuickChat");
-    
+    public boolean checkMessageID()
+    {
+        if (this.messageID == null)
+        {
+            return false
+        }
+        int count = 0;
+        for (int i = 0; i < this.messageID.length(); i++)
+        {
+            count++
+        }
+        return count<=maxIDLength;
+    }
+    public boolean checkRecipientCell()
+    {
+        String checkResult = checkUserCellphoneNum(this.recipientNumber);
+        return checkResult.equals("cell phone number successfully captured");
+    }
+    public String createMessageHash(intnmessageNumber)
+    {
+        char fisrtChar = this.messageID.charAt(0);
+        char secondChar = this.messageID.charAt(1);
+        String firstTwoDigits = "" firstChar + secondChar;
+        
+        String trimmed1 = this.messageText.trim();
+        String firstWord = "";
+        String lastWord = "";
+        
+        int firstSpace = trimmed1.indexOf('')
+        {
+          if (firstSpaceIndex == -1) 
+          {
+                firstWord = trimmed1;
+                lastWord = trimmed1;
+          } 
+          
+        }
+    }
+          
+    }
+    // System.out.println("Welcome to QuickChat");
 }
