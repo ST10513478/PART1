@@ -9,5 +9,9 @@ package com.mycompany.part1;
  * @author itume
  */
 public class Message {
+   
+    private String recipientNumber;
+    
+     System.out.println("Welcome to QuickChat");
     
 }
