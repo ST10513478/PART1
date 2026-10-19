@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class PART1 {
         
     public static void main(String[] args) {
-        
+        //Scanner for user inputs
         Scanner inputs = new Scanner(System.in);
         //Prompt users for surname
         System.out.println("Enter your name: ");
@@ -29,13 +29,22 @@ public class PART1 {
         //Prompt users for cellphone number
         System.out.println("Enter your cell phone number: ");
         String cellphoneNum = inputs.nextLine();
-        
+        //Print registration results
         System.out.println(checkUsername(username));
         System.out.println(checkUserPassword(password));
         System.out.println(checkUserCellphoneNum(cellphoneNum));
         
+        //Login process
+        Login userLogin = new Login();
+        System.out.println("Enter your username: ");
+        String loginUsername = inputs.nextLine();
         
-      
+        System.out.println("Enter your password: ");
+        String loginPassword = inputs.nextLine();
+        
+        boolean userLoggedIn = userLogin.checkLoginUser(loginUsername, loginPassword, username, password);
+        String loginStatus = userLogin.returnLoginStatus(userLoggedIn, name, surname);
+        System.out.println(loginStatus);
     }
     //Methods to validate registration inputs
     static String checkUsername( String userAccountName)
@@ -93,7 +102,7 @@ public class PART1 {
         else
         {
             return("Password is not correctly formatted "
-                    +"please ensure thst your username contains eight charactrers, "
+                    +"please ensure that your password contains eight charactrers, "
                     +"a capital letter, a number, a special character.");
         }
         
