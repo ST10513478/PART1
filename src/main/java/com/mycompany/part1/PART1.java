@@ -64,6 +64,7 @@ public class PART1 {
                     System.out.println("How many messages would you like to enter?");
                     int numMessages = Integer.parseInt(inputs.nextLine());
                     
+                    Message myMessage = new Message(recipientNum, msgText);
                     for (int i = 0; i < numMessages; i++)
                     {
                         System.out.println("Enter recipinet cell phone number:");
@@ -72,20 +73,22 @@ public class PART1 {
                         System.out.println("Enter message(max  250 characters):");
                         String msgText = inputs.nextLine();
                         
-                        if (Message.checkMessageLength() && Message.checkRecipientCell() && Message.checkMessageID())
+                        
+                        
+                        if (myMessage.checkMessageLength() && myMessage.checkRecipientCell() && myMessage.checkMessageID())
                         {
                             System.out.println("Choose action: 1. Send | 2. Disregard | 3. Store");
                             int actionChoice = Integer.parseInt(inputs.nextLine());
-                            System.out.println(Message.SentMessage(action));
+                            System.out.println(myMessage.SentMessage(actionChoice));
                         
                             if (actionChoice == 1)
                             {
                                 System.out.println("Message Details");
-                                System.out.println(Message.printMessages());
+                                System.out.println(myMessage.printMessages());
                             }
                         }
                     }
-                    System.out.println("Total messages processed: " + Message.returnTotalMessages());
+                    System.out.println("Total messages processed: " + myMessage.returnTotalMessages());
                     break;
                     
                 case 2:
