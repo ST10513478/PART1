@@ -11,24 +11,25 @@ import java.util.Random;
 public class Message {
    
     private String recipientNumber;
-    private int messageID;
-    private int numOfMessages;
+    private String messageID;
+    private int numOfMessages = 0;
     private int messageNumber;
     private String messageHash;
     private String messageStatus;
     private String message;
+    private int maxIDLength = 10;
             
-    public Message(String recipienNumber, String message)
+    public Message(String recipientNumber, String message)
     {
         this.messageID = generateMessageID();
         this.recipientNumber = recipientNumber;
         this.message = message;
-        numOfMessages++
+        numOfMessages++;
         this.messageNumber = numOfMessages;
         this.messageHash = createMessageHash();   
     }
     
-    private static String generateMessageID()
+    private String generateMessageID()
     {
         Random random = new Random();
         StringBuilder idBuild = new StringBuilder();
@@ -43,12 +44,12 @@ public class Message {
     {
         if (this.messageID == null)
         {
-            return false
+            return false;
         }
         int count = 0;
         for (int i = 0; i < this.messageID.length(); i++)
         {
-            count++
+            count++;
         }
         return count<=maxIDLength;
     }
@@ -63,17 +64,17 @@ public class Message {
     {
         if (messageID == null || messageID.length() <2)
         {
-            return ""
+            return "";
         }
         String firstTwo = messageID.substring(0,2);
         
-        String[] words = messageText.split(" ");
+        String[] words = message.split(" ");
         String firstWord = words[0];
-        String lastWord = words[words.length -1]: firstWord;
+        String lastWord = words.length > 1 ? words[words.length -1]: firstWord;
         
-        String combinedWords = (fisrtWord + lastWord).toUpperCase();
+        String combinedWords = (firstWord + lastWord).toUpperCase();
         
-        return fisrtTwo + ":" + messageNumber + ":" + combinedWords;
+        return firstTwo + ":" + messageNumber + ":" + combinedWords;
     }
     
     public String SentMessage(int choice)
@@ -82,13 +83,13 @@ public class Message {
         {
             case 1:
                 this.messageStatus = "Sent";
-                return "Message successfully sent"
+                return "Message successfully sent";
             case 2:
                 this.messageStatus = "Disregarded";
                 return "Press 0 to delete the message";
             case 3:
                 this.messageStatus = "Stored";
-                reurn "Message successfully stored";
+                return "Message successfully stored";
             default:
                 return "Invalid choice";
                 
@@ -100,7 +101,7 @@ public class Message {
         return "MessageID: " + messageID + " " + "Message Hash: " + messageHash + " " + 
                 "Recipient: " + recipientNumber + " " + "Message: " + message;
     }
-    public static int returnTotalMessages()
+    public int returnTotalMessages()
     {
         return numOfMessages;
     }
