@@ -45,6 +45,62 @@ public class PART1 {
         boolean userLoggedIn = userLogin.checkLoginUser(loginUsername, loginPassword, username, password);
         String loginStatus = userLogin.returnLoginStatus(userLoggedIn, name, surname);
         System.out.println(loginStatus);
+        
+        // System.out.println("Welcome to QuickChat");
+        //Message process
+        boolean running = true;
+        while (running)
+        {
+            System.out.println("Choose an option:");
+            System.out.println("1. Send Messages");
+            System.out.println("2. Show recently sent messages");
+            System.out.println("3. Quit");
+            
+            int choice = Integer.parseInt(inputs.nextLine());
+            
+            switch (choice)
+            {
+                case 1:
+                    System.out.println("How many messages would you like to enter?");
+                    int numMessages = Integer.parseInt(inputs.nextLine());
+                    
+                    for (int i = 0; i < numMessages; i++)
+                    {
+                        System.out.println("Enter recipinet cell phone number:");
+                        String recipientNum = inputs.nextLine();
+                        
+                        System.out.println("Enter message(max  250 characters):");
+                        String msgText = inputs.nextLine();
+                        
+                        if (Message.checkMessageLength() && Message.checkRecipientCell() && Message.checkMessageID())
+                        {
+                            System.out.println("Choose action: 1. Send | 2. Disregard | 3. Store");
+                            int actionChoice = Integer.parseInt(inputs.nextLine());
+                            System.out.println(Message.SentMessage(action));
+                        
+                            if (actionChoice == 1)
+                            {
+                                System.out.println("Message Details");
+                                System.out.println(Message.printMessages());
+                            }
+                        }
+                    }
+                    System.out.println("Total messages processed: " + Message.returnTotalMessages());
+                    break;
+                    
+                case 2:
+                    System.out.println("Coming Soon.");
+                    break;
+                
+                case 3:
+                    running = false;
+                    System.out.println("Exiting application. Goodbye!");
+                    break;
+                    
+                default:
+                    System.out.println("Invalid option, please try again");
+            }
+        }
     }
     //Methods to validate registration inputs
     static String checkUsername( String userAccountName)
