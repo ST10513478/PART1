@@ -51,25 +51,13 @@ public class Message {
         String checkResult = checkUserCellphoneNum(this.recipientNumber);
         return checkResult.equals("cell phone number successfully captured");
     }
-    public String createMessageHash(intnmessageNumber)
+    public String createMessageHash()
     {
-        char fisrtChar = this.messageID.charAt(0);
-        char secondChar = this.messageID.charAt(1);
-        String firstTwoDigits = "" firstChar + secondChar;
-        
-        String trimmed1 = this.messageText.trim();
-        String firstWord = "";
-        String lastWord = "";
-        
-        int firstSpace = trimmed1.indexOf('')
-        {
-          if (firstSpaceIndex == -1) 
-          {
-                firstWord = trimmed1;
-                lastWord = trimmed1;
-          } 
-          
-        }
+        String firstTwo = messageID.substring(0,2)
+        String words = messageText.split(" ");
+        String firstWord = words[0];
+        String lastWord = words[words.length -1]
+    }
     }
           
     }
