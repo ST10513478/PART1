@@ -49,18 +49,24 @@ public class PART1 {
                 checkUsername(username).contains("successfully")||!checkUserPassword(password).contains("successfully")||!checkUserCellphoneNum(cellphoneNum).contains("successfully"));
         
         //Login process
+        String loginUsername;
+        String loginPassword;
+        boolean userLoggedIn;
+        
         System.out.println("Account succefully registered, proceed to login.");
+        do{
         Login userLogin = new Login();
         System.out.println("Enter your username: ");
-        String loginUsername = inputs.nextLine();
+        loginUsername = inputs.nextLine();
         
         System.out.println("Enter your password: ");
-        String loginPassword = inputs.nextLine();
+        loginPassword = inputs.nextLine();
         
-        boolean userLoggedIn = userLogin.checkLoginUser(loginUsername, loginPassword, username, password);
+        userLoggedIn = userLogin.checkLoginUser(loginUsername, loginPassword, username, password);
         String loginStatus = userLogin.returnLoginStatus(userLoggedIn, name, surname);
         System.out.println(loginStatus);
-        
+        }
+        while(!userLoggedIn);
         // System.out.println("Welcome to QuickChat");
         /*
         //Message process
