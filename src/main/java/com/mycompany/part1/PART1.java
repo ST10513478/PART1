@@ -14,27 +14,42 @@ public class PART1 {
     public static void main(String[] args) {
         //Scanner for user inputs
         Scanner inputs = new Scanner(System.in);
+        String name;
+        String surname;
+        String username = "";
+        String password ="";
+        String cellphoneNum ="";
+        System.out.println("welcome to Quickchat");
+        System.out.println("select 1 for registracion, 2 for Login");
+        
+        //Loop to prompt user for inputs while entered inputs are false
+        do {            
         //Prompt users for surname
         System.out.println("Enter your name: ");
-        String name = inputs.nextLine();
+        name = inputs.nextLine();
         //Prompt users for surname
-       System.out.println("Enter your surname: ");
-        String surname = inputs.nextLine();
+        System.out.println("Enter your surname: ");
+        surname = inputs.nextLine();
         //Prompt users for username
         System.out.println("Enter your username: ");
-        String username = inputs.nextLine();
+        username = inputs.nextLine();
         //Prompt users for password
         System.out.println("Enter your password: ");
-        String password = inputs.nextLine();
+        password = inputs.nextLine();
         //Prompt users for cellphone number
         System.out.println("Enter your cell phone number: ");
-        String cellphoneNum = inputs.nextLine();
+        cellphoneNum = inputs.nextLine();
+        
         //Print registration results
         System.out.println(checkUsername(username));
         System.out.println(checkUserPassword(password));
         System.out.println(checkUserCellphoneNum(cellphoneNum));
+        }
+        while (!
+                checkUsername(username).contains("successfully")||!checkUserPassword(password).contains("successfully")||!checkUserCellphoneNum(cellphoneNum).contains("successfully"));
         
         //Login process
+        System.out.println("Account succefully registered, proceed to login.");
         Login userLogin = new Login();
         System.out.println("Enter your username: ");
         String loginUsername = inputs.nextLine();
@@ -47,6 +62,7 @@ public class PART1 {
         System.out.println(loginStatus);
         
         // System.out.println("Welcome to QuickChat");
+        /*
         //Message process
         boolean running = true;
         while (running)
@@ -103,8 +119,9 @@ public class PART1 {
                 default:
                     System.out.println("Invalid option, please try again");
             }
-        }
+        }*/
     }
+        
     //Methods to validate registration inputs
     static String checkUsername( String userAccountName)
             
@@ -118,7 +135,7 @@ public class PART1 {
         else
         {
             return "Username is not correctly formatted "
-                  +"please ensure thst your username contains an underscore "
+                  +"please ensure that your username contains an underscore "
                   +"and is no more than five charactrers long";
         }
         }
@@ -154,14 +171,14 @@ public class PART1 {
             }
         }
         
-        if (count1>=8 && uppercaseCount>1 && numCount>1 && specialCharCount>1)
+        if (count1>=8 && uppercaseCount>=1 && numCount>=1 && specialCharCount>=1)
         {
             return("Password successfully captured.");
         }
         else
         {
             return("Password is not correctly formatted "
-                    +"please ensure that your password contains eight charactrers, "
+                    +"please ensure that your password contains eight characters, "
                     +"a capital letter, a number, a special character.");
         }
         
@@ -175,7 +192,7 @@ public class PART1 {
         
         if (phoneNum.matches(regex))
         {
-            return "Cell phone number successfully added.";
+            return "Cell phone number successfully captured.";
         }
         else
         {
