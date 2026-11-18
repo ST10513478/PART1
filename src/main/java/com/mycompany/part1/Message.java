@@ -4,6 +4,7 @@
  */
 package com.mycompany.part1;
 import java.util.Random;
+
 /**
  *
  * @author itume
@@ -13,6 +14,7 @@ public class Message {
     private String recipientNumber;
     private String messageID;
     private int numOfMessages = 0;
+    private String allSentMessages ="";
     private int messageNumber;
     private String messageHash;
     private String messageStatus;
@@ -24,7 +26,6 @@ public class Message {
         this.messageID = generateMessageID();
         this.recipientNumber = recipientNumber;
         this.message = message;
-        numOfMessages++;
         this.messageNumber = numOfMessages;
         this.messageHash = createMessageHash();   
     }
@@ -57,7 +58,7 @@ public class Message {
     public boolean checkRecipientCell()
     {
         String checkResult = PART1.checkUserCellphoneNum(this.recipientNumber);
-        return checkResult.equals("cell phone number successfully captured");
+        return checkResult.equals("cell phone number successfully captured.");
     }
     
     public String createMessageHash()
@@ -83,6 +84,8 @@ public class Message {
         {
             case 1:
                 this.messageStatus = "Sent";
+                numOfMessages++;
+                allSentMessages = allSentMessages + messageDetails()+"\n\n";
                 return "Message successfully sent";
             case 2:
                 this.messageStatus = "Disregarded";
@@ -95,15 +98,32 @@ public class Message {
                 
         }
     }
+    public boolean checkMessageLength()
+    {
+        return this.message.length() <=250;
+    }
+    
+    public String messageDetails()
+    {
+        return "Message ID: "+messageID+ "\n"
+                + "Message Hash: "+messageHash+"\n"
+                + "Recipient: "+recipientNumber +"\n"
+                + "Message: "+message;
+    }
     
     public String printMessages()
     {
-        return "MessageID: " + messageID + " " + "Message Hash: " + messageHash + " " + 
-                "Recipient: " + recipientNumber + " " + "Message: " + message;
+        /*return "MessageID: " + messageID + " " + "Message Hash: " + messageHash + " " + 
+                "Recipient: " + recipientNumber + " " + "Message: " + message;*/
+        return allSentMessages;
     }
-    public int returnTotalMessages()
+    public static int returnTotalMessages()
     {
         return numOfMessages;
+    }
+    public void storeMessage()
+    {
+        
     }
     }
     
