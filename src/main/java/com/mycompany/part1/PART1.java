@@ -67,8 +67,9 @@ public class PART1 {
         System.out.println(loginStatus);
         }
         while(!userLoggedIn);
+        
         // System.out.println("Welcome to QuickChat");
-        /*
+        
         //Message process
         boolean running = true;
         while (running)
@@ -86,7 +87,7 @@ public class PART1 {
                     System.out.println("How many messages would you like to enter?");
                     int numMessages = Integer.parseInt(inputs.nextLine());
                     
-                    Message myMessage = new Message(recipientNum, msgText);
+                    
                     for (int i = 0; i < numMessages; i++)
                     {
                         System.out.println("Enter recipinet cell phone number:");
@@ -95,9 +96,25 @@ public class PART1 {
                         System.out.println("Enter message(max  250 characters):");
                         String msgText = inputs.nextLine();
                         
+                        Message myMessage = new Message(recipientNum, msgText);
                         
-                        
-                        if (myMessage.checkMessageLength() && myMessage.checkRecipientCell() && myMessage.checkMessageID())
+                        if (myMessage.checkRecipientCell())
+                        {
+                            System.out.println(checkUserCellphoneNum(recipientNum));
+                            i--;   
+                        }
+                        else if (!myMessage.checkMessageLength())
+                                    {
+                                        System.out.println("Please enter a message of less than 250 characters.");
+                                        i--;
+                                    }
+                        else if (!myMessage.checkMessageID())
+                        {
+                            System.out.println("Message ID is invalid.");
+                            i--;
+                        }
+                        /*if (myMessage.checkMessageLength() && myMessage.checkRecipientCell() && myMessage.checkMessageID())*/
+                        else
                         {
                             System.out.println("Choose action: 1. Send | 2. Disregard | 3. Store");
                             int actionChoice = Integer.parseInt(inputs.nextLine());
@@ -110,7 +127,7 @@ public class PART1 {
                             }
                         }
                     }
-                    System.out.println("Total messages processed: " + myMessage.returnTotalMessages());
+                    System.out.println("Total messages processed: " + Message.returnTotalMessages());
                     break;
                     
                 case 2:
@@ -125,7 +142,7 @@ public class PART1 {
                 default:
                     System.out.println("Invalid option, please try again");
             }
-        }*/
+        }
     }
         
     //Methods to validate registration inputs
