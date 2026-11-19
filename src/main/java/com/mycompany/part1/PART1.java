@@ -149,20 +149,20 @@ public class PART1 {
                     while (inStored)
                     {
                         System.out.println("Stored Messages:");
-                        System.out.println("Display sender and recipient of all stored messages:");
+                        System.out.println("1 - Display sender and recipient of all stored messages:");
                         System.out.println("2 - Display Stored Messages:");
-                        System.out.println("Search for a message ID:");
-                        System.out.println("Search for all messages for a recipient");
-                        System.out.println("Delete a message using the message hash");
-                        System.out.println("Display a report of all stored messages");
-                        System.out.println("Back to main menu");
+                        System.out.println("3 - Search for a message ID:");
+                        System.out.println("4 - Search for all messages for a recipient");
+                        System.out.println("5 - Delete a message using the message hash");
+                        System.out.println("6 - Display a report of all stored messages");
+                        System.out.println("7 - Back to main menu");
                         
                         int storedChoice = Integer.parseInt(inputs.nextLine().trim());
                         
                         switch (storedChoice)
                         {
                             case 1:
-                                System.out.println(Message.displaySenderAndRecipient(name + "" + surname));
+                                System.out.println(Message.displaySenderAndRecipient(name + " " + surname));
                                 break;
                             case 2:
                                 System.out.println(Message.longestMessaage());
@@ -185,7 +185,9 @@ public class PART1 {
                             case 7:
                                 inStored = false;
                                 break;
-                                
+                            default:
+                                System.out.println("Invalid option, please try again");
+                                break;
                         }
                     }
                     
@@ -269,7 +271,7 @@ public class PART1 {
         }
         else
         {
-            return "Cell phone number is incorrectly formatted or does not contain an international code; please correct the number and try again.";
+            return "Cell phone number is incorrectly formatted or does not contain an international code. Please correct the number and try again.";
                   
         } 
         }
