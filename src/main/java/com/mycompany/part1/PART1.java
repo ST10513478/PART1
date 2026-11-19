@@ -68,8 +68,10 @@ public class PART1 {
         }
         while(!userLoggedIn);
         
-        // System.out.println("Welcome to QuickChat");
-        
+        System.out.println("Welcome to QuickChat");
+        System.out.println("How many messages would you like to enter?");
+        int numMessages = Integer.parseInt(inputs.nextLine().trim());
+        int messagesEntered = 0;
         //Message process
         boolean running = true;
         while (running)
@@ -84,11 +86,11 @@ public class PART1 {
             switch (choice)
             {
                 case 1:
-                    System.out.println("How many messages would you like to enter?");
-                    int numMessages = Integer.parseInt(inputs.nextLine());
+                    if (messagesEntered >= numMessages) {
+                        System.out.println("You have already entered all "+numMessages+" messages.");
+                        break;}
                     
-                    
-                    for (int i = 0; i < numMessages; i++)
+                    while (messagesEntered < numMessages)
                     {
                         System.out.println("Enter recipinet cell phone number:");
                         String recipientNum = inputs.nextLine();
@@ -98,20 +100,20 @@ public class PART1 {
                         
                         Message myMessage = new Message(recipientNum, msgText);
                         
-                        if (myMessage.checkRecipientCell())
+                        if (!myMessage.checkRecipientCell())
                         {
                             System.out.println(checkUserCellphoneNum(recipientNum));
-                            i--;   
+                               
                         }
                         else if (!myMessage.checkMessageLength())
                                     {
                                         System.out.println("Please enter a message of less than 250 characters.");
-                                        i--;
+                                        
                                     }
                         else if (!myMessage.checkMessageID())
                         {
                             System.out.println("Message ID is invalid.");
-                            i--;
+                            
                         }
                         /*if (myMessage.checkMessageLength() && myMessage.checkRecipientCell() && myMessage.checkMessageID())*/
                         else
@@ -125,6 +127,7 @@ public class PART1 {
                                 System.out.println("Message Details");
                                 System.out.println(myMessage.printMessages());
                             }
+                            messagesEntered++;
                         }
                     }
                     System.out.println("Total messages processed: " + Message.returnTotalMessages());
@@ -219,7 +222,7 @@ public class PART1 {
         }
         else
         {
-            return "Cell phone number is incorrectly formatted or does not contain international code";
+            return "Cell phone number is incorrectly formatted or does not contain an international code; please correct the number and try again.";
                   
         } 
         }
