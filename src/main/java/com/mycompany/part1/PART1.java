@@ -19,6 +19,8 @@ public class PART1 {
         String username = "";
         String password ="";
         String cellphoneNum ="";
+        
+        
         System.out.println("welcome to Quickchat");
         System.out.println("select 1 for registracion, 2 for Login");
         
@@ -115,9 +117,9 @@ public class PART1 {
                             System.out.println("Message ID is invalid.");
                             
                         }
-                        /*if (myMessage.checkMessageLength() && myMessage.checkRecipientCell() && myMessage.checkMessageID())*/
                         else
                         {
+                            System.out.println("Message ready to send.");
                             System.out.println("Choose action: 1. Send | 2. Disregard | 3. Store");
                             int actionChoice = Integer.parseInt(inputs.nextLine());
                             System.out.println(myMessage.SentMessage(actionChoice));
@@ -141,6 +143,20 @@ public class PART1 {
                     running = false;
                     System.out.println("Exiting application. Goodbye!");
                     break;
+                    
+                case 4:
+                    boolean inStored = true;
+                    while (inStored)
+                    {
+                        System.out.println("Stored Messages:");
+                        System.out.println("Display sender and recipient of all stored messages:");
+                        System.out.println("2 - Display Stored Messages:");
+                        System.out.println("Search for a message ID:");
+                        System.out.println("Search for all messages for a recipient");
+                        System.out.println("Delete a message using the message hash");
+                        System.out.println("Display a report of all stored messages");
+                        System.out.println("Back to main menu");
+                    }
                     
                 default:
                     System.out.println("Invalid option, please try again");
