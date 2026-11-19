@@ -13,7 +13,7 @@ public class Message {
    
     private String recipientNumber;
     private String messageID;
-    private int numOfMessages = 0;
+    private static int numOfMessages = 0;
     private String allSentMessages ="";
     private int messageNumber;
     private String messageHash;
@@ -34,7 +34,7 @@ public class Message {
     {
         Random random = new Random();
         StringBuilder idBuild = new StringBuilder();
-        for (int i = 0; 1<maxIDLength; i++)
+        for (int i = 0; i<maxIDLength; i++)
         {
             idBuild.append(random.nextInt(10));
         }
@@ -58,7 +58,7 @@ public class Message {
     public boolean checkRecipientCell()
     {
         String checkResult = PART1.checkUserCellphoneNum(this.recipientNumber);
-        return checkResult.equals("cell phone number successfully captured.");
+        return checkResult.equals("Cell phone number successfully captured.");
     }
     
     public String createMessageHash()
