@@ -7,14 +7,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.util.Random;
 import java.util.ArrayList;
-import java.util.List;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -284,7 +281,7 @@ public class Message {
     public static String searchByRecipient(String recipient)
     {
         String result ="";
-        for (message m : sentMessages)
+        for (Message m : sentMessages)
         {
             if (m.recipientNumber.equals(recipient))
             {
@@ -311,10 +308,10 @@ public class Message {
         {
             if (storedMessages.get(i).messageHash.equals(hash))
                     {
-                        String text = storedMessages.get(i).messsage;
+                        String text = storedMessages.get(i).message;
                         storedMessages.remove(i);
-                        rewriteStoredFIle();
-                        return "Message: \" "+ text +"\"Successfully deleted."
+                        rewriteStoredFile();
+                        return "Message: \" " + text +"\"Successfully deleted.";
                     }
         }
         return "Message hash not found.";
@@ -323,7 +320,7 @@ public class Message {
     private static void rewriteStoredFile()
     {
         try {
-            FileWriter file = new FileWriter(storageFIle, false);
+            FileWriter file = new FileWriter(storageFile, false);
             for (Message m: storedMessages)
             {
                 file.write(m.toJSON().toJSONString() + "\n");
