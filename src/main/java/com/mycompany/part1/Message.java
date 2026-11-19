@@ -4,6 +4,11 @@
  */
 package com.mycompany.part1;
 import java.util.Random;
+import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -14,7 +19,7 @@ public class Message {
     private String recipientNumber;
     private String messageID;
     private static int numOfMessages = 0;
-    private String allSentMessages ="";
+    private static String allSentMessages ="";
     private int messageNumber;
     private String messageHash;
     private String messageStatus;
@@ -68,10 +73,9 @@ public class Message {
             return "";
         }
         String firstTwo = messageID.substring(0,2);
-        
-        String[] words = message.split(" ");
-        String firstWord = words[0];
-        String lastWord = words.length > 1 ? words[words.length -1]: firstWord;
+        String[] words = message.split(" \\s+");
+        String firstWord = words[0].replaceAll("[^A-Za-z0-9]", "");
+        String lastWord =  words[words.length -1].replaceAll("[^A-Za-z0-9]","");
         
         String combinedWords = (firstWord + lastWord).toUpperCase();
         
@@ -86,13 +90,14 @@ public class Message {
                 this.messageStatus = "Sent";
                 numOfMessages++;
                 allSentMessages = allSentMessages + messageDetails()+"\n\n";
-                return "Message successfully sent";
+                return "Message successfully sent.";
             case 2:
                 this.messageStatus = "Disregarded";
-                return "Press 0 to delete the message";
+                return "Press 0 to delete the message.";
             case 3:
                 this.messageStatus = "Stored";
-                return "Message successfully stored";
+                storeMessage();
+                return "Message successfully stored.";
             default:
                 return "Invalid choice";
                 
@@ -123,6 +128,19 @@ public class Message {
     }
     public void storeMessage()
     {
+        JSONObject messageJSON = new JSONObject();
+        messageJSON.put("messageID", messageID); 
+        messageJSON.put("messageHash", messageHash);
+        messageJSON.put("Recipient", recipientNumber);
+        messageJSON.put("message", message);
+        
+        try {
+            FileWriter file = new FileWriter("messages.json", true);
+            file.write(messageJSON.toJSONString() + "\n");
+            file.close();
+        } catch (Exception e) {
+            System.out.println("Messages could not be stored");
+        }
         
     }
     }
