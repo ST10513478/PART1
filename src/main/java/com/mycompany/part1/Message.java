@@ -25,7 +25,14 @@ public class Message {
     private String messageStatus;
     private String message;
     private int maxIDLength = 10;
-            
+    
+    public static ArrayList<Message> sentMessages = new ArrayList<>();
+    public static ArrayList<Message> disregardedMessages = new ArrayList<>(); 
+    public static ArrayList<Message> storedMessages = new ArrayList<>();
+    public static ArrayList<String> messageHashes = new ArrayList<>();
+    public static ArrayList<String> messageIDs = new ArrayList<>();
+    
+    
     public Message(String recipientNumber, String message)
     {
         this.messageID = generateMessageID();
