@@ -21,7 +21,7 @@ public String returnLoginStatus(boolean userLoggedIn, String name, String surnam
         {
     if (userLoggedIn)
     {
-        return "Welcome "+name +","+surname+" it is great to see you again.";
+        return "Welcome "+name +" "+surname+", it is great to see you again.";
     }
     else
     {
