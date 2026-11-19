@@ -156,6 +156,37 @@ public class PART1 {
                         System.out.println("Delete a message using the message hash");
                         System.out.println("Display a report of all stored messages");
                         System.out.println("Back to main menu");
+                        
+                        int storedChoice = Integer.parseInt(inputs.nextLine().trim());
+                        
+                        switch (storedChoice)
+                        {
+                            case 1:
+                                System.out.println(Message.displaySenderAndRecipient(name + "" + surname));
+                                break;
+                            case 2:
+                                System.out.println(Message.longestMessaage());
+                                break;
+                            case 3:
+                                System.out.print("Enter the message ID:");
+                                System.out.println(Message.searchByID(inputs.nextLine().trim()));
+                                break;
+                            case 4:
+                                System.out.print("Enter the c number:");
+                                System.out.println(Message.searchByRecipient(inputs.nextLine().trim()));
+                                break;
+                            case 5:
+                                System.out.print("Enter the message hash:");
+                                System.out.println(Message.deleteByHash(inputs.nextLine().trim().toUpperCase()));
+                                break;
+                            case 6:
+                                System.out.println(Message.displayReport(Message.storedMessages));
+                                break;
+                            case 7:
+                                inStored = false;
+                                break;
+                                
+                        }
                     }
                     
                 default:
