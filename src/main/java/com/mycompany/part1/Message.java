@@ -168,16 +168,16 @@ public class Message {
         messageJSON.put("messageID", messageID); 
         messageJSON.put("messageHash", messageHash);
         messageJSON.put("messageNumber", messageNumber);
-        messageJSON.put("Recipient", recipientNumber);
+        messageJSON.put("recipient", recipientNumber);
         messageJSON.put("message", message);
         return messageJSON;
-}   
+    }   
     
     public void storeMessage()
     {
         try {
             FileWriter file = new FileWriter("messages.json", true);
-            file.write(messageJSON.toJSONString() + "\n");
+            file.write(toJSON().toJSONString() + "\n");
             file.close();
         } catch (Exception e) {
             System.out.println("Messages could not be stored");
