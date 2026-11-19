@@ -38,6 +38,7 @@ public class Message {
     public static ArrayList<String> messageHashes = new ArrayList<>();
     public static ArrayList<String> messageIDs = new ArrayList<>();
     
+    public static String storageFile = "messages.json";
     
     public Message(String recipientNumber, String message)
     {
@@ -46,6 +47,15 @@ public class Message {
         this.message = message;
         this.messageNumber = numOfMessages;
         this.messageHash = createMessageHash();   
+    }
+    
+    public Message(String messageID, String recipientNumber, String message, int messageNumber)
+    {
+        this.messageID = messageID;
+        this.recipientNumber = recipientNumber;
+        this.message = message;
+        this.messageNumber = messageNumber;
+        this.messageHash = createMessageHash();
     }
     
     private String generateMessageID()
@@ -86,7 +96,7 @@ public class Message {
             return "";
         }
         String firstTwo = messageID.substring(0,2);
-        String[] words = message.split(" \\s+");
+        String[] words = message.split("\\s+");
         String firstWord = words[0].replaceAll("[^A-Za-z0-9]", "");
         String lastWord =  words[words.length -1].replaceAll("[^A-Za-z0-9]","");
         
@@ -147,24 +157,27 @@ public class Message {
     {
         return numOfMessages;
     }
+       
     
-    
-    
-    
- /*   //Getters
+    //Getters
     public String getMessageID(){return messageID;}
     public String getMessageHash(){return messageHash;}
     public String getMessage(){return message;}
     public String getRecipient(){return recipientNumber;}
-    */
-    public void storeMessage()
+    
+    private JSONObject toJSON()
     {
         JSONObject messageJSON = new JSONObject();
         messageJSON.put("messageID", messageID); 
         messageJSON.put("messageHash", messageHash);
+        messageJSON.put("messageNumber", messageNumber);
         messageJSON.put("Recipient", recipientNumber);
         messageJSON.put("message", message);
-        
+        return messageJSON;
+}   
+    
+    public void storeMessage()
+    {
         try {
             FileWriter file = new FileWriter("messages.json", true);
             file.write(messageJSON.toJSONString() + "\n");
@@ -172,8 +185,8 @@ public class Message {
         } catch (Exception e) {
             System.out.println("Messages could not be stored");
         }
-        
-    }
+    }    
+    
     
     public static void loadStoredMessages()
     {
@@ -182,11 +195,11 @@ public class Message {
         
         if (!file.exists())
         {
-            return();
+            return;
         }
         
         try {
-            BufferedReader reader = new BufferedReader(new FileReader());
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             JSONParser parser = new JSONParser();
             String line;
             
@@ -199,11 +212,11 @@ public class Message {
                 
                 JSONObject obj = (JSONObject) parser.parse(line);
                 String id = (String) obj.get("messageID");
-                String recipent = (String) obj.get("recipient");
+                String recipient = (String) obj.get("recipient");
                 String text = (String) obj.get("message");
                 int number = ((Long) obj.get("messageNumber")).intValue();
                 
-                message m = new Message(id, recipient, text, number);
+                Message m = new Message(id, recipient, text, number);
                 m.messageStatus = "Stored";
                 storedMessages.add(m);
                 messageIDs.add(m.getMessageID());
@@ -333,6 +346,28 @@ public class Message {
             report = report + m.messageDetails() + "\n\n";
         }
         return report;
+    }
+    
+    public static void resetCOunters()
+    {
+        numOfMessages = 0;
+        allSentMessages ="";
+        sentMessages.clear();
+        disregardedMessages.clear();
+        storedMessages.clear();
+        messageHashes.clear();
+        messageIDs.clear();
+    }
+    
+    public String messageLengthResult()
+    {
+        if(checkMessageLength()) {return "Message ready to send.";}
+        return "Message exceeds 250 characters by " + (message.length() - 250) + "please reduce the size.";
+    }
+    
+    public String messageIDGenerated()
+    {
+        return "Message ID generated: " + messageID;
     }
 
     }
