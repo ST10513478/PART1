@@ -3,12 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.part1;
+import java.io.BufferedReader;
+import java.io.File;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.List;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -91,19 +97,28 @@ public class Message {
     
     public String SentMessage(int choice)
     {
+        if (choice >= 1 && choice <=3)
+        {
+            messageIDs.add(messageID);
+            messageHashes.add(messageHash);   
+        }
+        
         switch (choice)
         {
             case 1:
                 this.messageStatus = "Sent";
                 numOfMessages++;
+                sentMessages.add(this);
                 allSentMessages = allSentMessages + messageDetails()+"\n\n";
                 return "Message successfully sent.";
             case 2:
                 this.messageStatus = "Disregarded";
+                disregardedMessages.add(this);
                 return "Press 0 to delete the message.";
             case 3:
                 this.messageStatus = "Stored";
                 storeMessage();
+                storedMessages.add(this);
                 return "Message successfully stored.";
             default:
                 return "Invalid choice";
@@ -125,14 +140,23 @@ public class Message {
     
     public String printMessages()
     {
-        /*return "MessageID: " + messageID + " " + "Message Hash: " + messageHash + " " + 
-                "Recipient: " + recipientNumber + " " + "Message: " + message;*/
         return allSentMessages;
     }
+    
     public static int returnTotalMessages()
     {
         return numOfMessages;
     }
+    
+    
+    
+    
+ /*   //Getters
+    public String getMessageID(){return messageID;}
+    public String getMessageHash(){return messageHash;}
+    public String getMessage(){return message;}
+    public String getRecipient(){return recipientNumber;}
+    */
     public void storeMessage()
     {
         JSONObject messageJSON = new JSONObject();
@@ -150,6 +174,167 @@ public class Message {
         }
         
     }
+    
+    public static void loadStoredMessages()
+    {
+        storedMessages.clear();
+        File file = new File(storageFile);
+        
+        if (!file.exists())
+        {
+            return();
+        }
+        
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader());
+            JSONParser parser = new JSONParser();
+            String line;
+            
+            while ((line = reader.readLine()) != null)
+            {
+                if (line.trim().isEmpty())
+                {
+                    continue;
+                }
+                
+                JSONObject obj = (JSONObject) parser.parse(line);
+                String id = (String) obj.get("messageID");
+                String recipent = (String) obj.get("recipient");
+                String text = (String) obj.get("message");
+                int number = ((Long) obj.get("messageNumber")).intValue();
+                
+                message m = new Message(id, recipient, text, number);
+                m.messageStatus = "Stored";
+                storedMessages.add(m);
+                messageIDs.add(m.getMessageID());
+                messageHashes.add(m.getMessageHash());
+            }
+            reader.close();
+            
+        } catch (Exception e) {
+            System.out.println("Could not read the stored messages.");
+        }
+    }
+    
+    public static String displaySenderAndRecipient(String sender) {
+        if (storedMessages.isEmpty())
+        {
+            return "No Stored messages.";
+        }
+        
+        String result = "";
+        for (Message m: storedMessages)
+        {
+            result = result + "Sender: "+sender +"Recipient: " + m.recipientNumber + "\n";
+            
+        }
+        return result;
+    }
+    public static String longestMessaage()
+    {
+        if (storedMessages.isEmpty())
+        {
+            return "No stored messages.";
+        }
+        
+        String longest = storedMessages.get(0).message;
+        for (Message m: storedMessages)
+        {
+            if (m.message.length() > longest.length())
+            {
+                longest = m.message;
+            }
+        }
+        return longest;
+    }
+    
+    //Search for message using message ID
+    public static String searchByID(String id)
+    {
+        for (Message m : sentMessages)
+        {
+            if (m.messageID.equals(id))
+            {
+                return m.message;
+            }
+        }
+        for (Message m : storedMessages)
+        {
+           if (m.messageID.equals(id))
+            {
+                return m.message;
+            } 
+        }
+        return "Message ID not found.";
+    }
+    
+    public static String searchByRecipient(String recipient)
+    {
+        String result ="";
+        for (message m : sentMessages)
+        {
+            if (m.recipientNumber.equals(recipient))
+            {
+                result = result + m.message + "\n";
+            }
+        }
+        for (Message m : storedMessages)
+        {
+            if (m.recipientNumber.equals(recipient))
+            {
+                result = result + m.message + "\n";
+            }
+        }
+        if (result.equals(""))
+        {
+            return "No messages found for that recipient.";
+        }
+        return result.trim();
+    }
+    
+    public static String deleteByHash(String hash)
+    {
+        for(int i = 0; i < storedMessages.size(); i++)
+        {
+            if (storedMessages.get(i).messageHash.equals(hash))
+                    {
+                        String text = storedMessages.get(i).messsage;
+                        storedMessages.remove(i);
+                        rewriteStoredFIle();
+                        return "Message: \" "+ text +"\"Successfully deleted."
+                    }
+        }
+        return "Message hash not found.";
+    }
+    
+    private static void rewriteStoredFile()
+    {
+        try {
+            FileWriter file = new FileWriter(storageFIle, false);
+            for (Message m: storedMessages)
+            {
+                file.write(m.toJSON().toJSONString() + "\n");
+            }
+            file.close();
+        } catch (Exception e) {
+            System.out.println("Could not update the stored messages file.");
+        }
+    }
+    
+    public static String displayReport(ArrayList<Message>list)
+    {
+        if (list.isEmpty())
+        {
+            return "No messages to report.";
+        }
+        String report = "";
+        for (Message m : list)
+        {
+            report = report + m.messageDetails() + "\n\n";
+        }
+        return report;
+    }
+
     }
     
 
