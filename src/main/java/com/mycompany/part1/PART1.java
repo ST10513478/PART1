@@ -80,6 +80,7 @@ public class PART1 {
             System.out.println("1. Send Messages");
             System.out.println("2. Show recently sent messages");
             System.out.println("3. Quit");
+            System.out.println("4. Stored messages");
             
             int choice = Integer.parseInt(inputs.nextLine());
             
@@ -134,7 +135,8 @@ public class PART1 {
                     break;
                     
                 case 2:
-                    System.out.println("Coming Soon.");
+                    System.out.println("Recently sent messages:");
+                    System.out.println(Message.displayReport(Message.sentMessages));
                     break;
                 
                 case 3:
@@ -188,7 +190,7 @@ public class PART1 {
                                 break;
                         }
                     }
-                    
+                break;
                 default:
                     System.out.println("Invalid option, please try again");
             }
