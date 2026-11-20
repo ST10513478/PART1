@@ -235,12 +235,12 @@ public class Message {
         String result = "";
         for (Message m: storedMessages)
         {
-            result = result + "Sender: "+sender +"Recipient: " + m.recipientNumber + "\n";
+            result = result + "Sender: "+sender +" | Recipient: " + m.recipientNumber + "\n";
             
         }
         return result;
     }
-    public static String longestMessaage()
+    public static String longestMessage()
     {
         if (storedMessages.isEmpty())
         {
@@ -311,7 +311,7 @@ public class Message {
                         String text = storedMessages.get(i).message;
                         storedMessages.remove(i);
                         rewriteStoredFile();
-                        return "Message: \" " + text +"\"Successfully deleted.";
+                        return "Message: \"" + text +"\" Successfully deleted.";
                     }
         }
         return "Message hash not found.";
@@ -345,7 +345,7 @@ public class Message {
         return report;
     }
     
-    public static void resetCOunters()
+    public static void resetCounters()
     {
         numOfMessages = 0;
         allSentMessages ="";
@@ -359,7 +359,7 @@ public class Message {
     public String messageLengthResult()
     {
         if(checkMessageLength()) {return "Message ready to send.";}
-        return "Message exceeds 250 characters by " + (message.length() - 250) + "please reduce the size.";
+        return "Message exceeds 250 characters by " + (message.length() - 250) + " please reduce the size.";
     }
     
     public String messageIDGenerated()
