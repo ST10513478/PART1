@@ -240,7 +240,7 @@ public class Message {
         }
         return result;
     }
-    public static String longestMessaage()
+    public static String longestMessage()
     {
         if (storedMessages.isEmpty())
         {
@@ -345,7 +345,7 @@ public class Message {
         return report;
     }
     
-    public static void resetCOunters()
+    public static void resetCounters()
     {
         numOfMessages = 0;
         allSentMessages ="";
