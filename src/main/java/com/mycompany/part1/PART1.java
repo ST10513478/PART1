@@ -20,9 +20,7 @@ public class PART1 {
         String password ="";
         String cellphoneNum ="";
         
-        
-        System.out.println("welcome to Quickchat");
-        System.out.println("select 1 for registracion, 2 for Login");
+      
         
         //Loop to prompt user for inputs while entered inputs are false
         do {            
@@ -127,7 +125,7 @@ public class PART1 {
                             if (actionChoice == 1)
                             {
                                 System.out.println("Message Details");
-                                System.out.println(myMessage.printMessages());
+                                System.out.println(myMessage.messageDetails());
                             }
                             messagesEntered++;
                         }
@@ -149,13 +147,13 @@ public class PART1 {
                     while (inStored)
                     {
                         System.out.println("Stored Messages:");
-                        System.out.println("1 - Display sender and recipient of all stored messages:");
-                        System.out.println("2 - Display Stored Messages:");
-                        System.out.println("3 - Search for a message ID:");
-                        System.out.println("4 - Search for all messages for a recipient");
-                        System.out.println("5 - Delete a message using the message hash");
-                        System.out.println("6 - Display a report of all stored messages");
-                        System.out.println("7 - Back to main menu");
+                        System.out.println("1. Display sender and recipient of all stored messages:");
+                        System.out.println("2. Display Stored Messages:");
+                        System.out.println("3. Search for a message ID:");
+                        System.out.println("4. Search for all messages for a recipient");
+                        System.out.println("5. Delete a message using the message hash");
+                        System.out.println("6. Display a report of all stored messages");
+                        System.out.println("7. Back to main menu");
                         
                         int storedChoice = Integer.parseInt(inputs.nextLine().trim());
                         
@@ -165,7 +163,7 @@ public class PART1 {
                                 System.out.println(Message.displaySenderAndRecipient(name + " " + surname));
                                 break;
                             case 2:
-                                System.out.println(Message.longestMessaage());
+                                System.out.println(Message.longestMessage());
                                 break;
                             case 3:
                                 System.out.print("Enter the message ID:");
